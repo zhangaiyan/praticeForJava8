@@ -1,0 +1,18 @@
+1、lambda表达式替换匿名类，用() -> {}代码块替换这个匿名类。
+例：(int even,int odd) -> {even + odd};
+当只有一个参数时,()可以省略;当方法体只有一行代码时,{}可省略。通常lambda表达式内部变量的名字要简短，可以使代码更加简洁。
+
+2、使用lambda表达式对列表进行迭代。
+例：(1) list.foreach(n -> System.out.println(n));
+(2) list.foreach(System.out::println);
+java8中使用::表示方法引用,方法引用是用来直接访问类或者实例已经存在的方法或构造方法。方法引用提供了一种引用而不执行方法的方式，它需要由兼容
+的函数式接口构成的目标类型上下文。计算时，方法引用会创建函数式接口的一个实例。当Lambda表达式只是执行一个方法调用时，直接通过方法引用的形式
+可读性更高。
+
+3、Java8添加了一个包java.util.function包，它包含很多类，用来支持Java的函数式编程。Predicate便是其中之一，使用Lambda表达式和函数式接口
+Predicate【适合做过滤操作】，可以向API方法添加逻辑，且可以Stream API使用，用更少的代码支持更多的动态行为。
+例： list.stream().filter((x) -> (condition.demo(x)));
+
+4、
+
+

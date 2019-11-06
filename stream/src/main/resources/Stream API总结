@@ -1,0 +1,36 @@
+一、定义：Stream是Java8中处理集合的关键抽象概念，可以对集合进行非常复杂的查找、过滤和映射数据等操作。使用Stream  API对集合数据进行操作，
+类似于使用sql执行的数据库查询，且支持并行执行操作。
+1、流是数据渠道，用于操作数据源(集合、数组)所生成的元素序列。
+2、集合讲的是数据，流讲的是计算。
+二、特点：
+1、Stream自身不会存储元素。
+2、Stream不会改变源对象，它们会返回一个持有结果的新Stream。
+3、Stream操作是延迟执行的，它们会等到需要结果的时候再去执行。
+三、操作步骤：
+1、创建Stream：一个数据源(集合、数组)，获取一个流。
+2、中间操作：一个中间操作链，对数据源数据进行处理。
+3、终止操作：一个终止操作，执行中间操作链，并产生结果。
+四、常用API及创建方式：
+1、创建Stream方式：
+(1)Java8中Collection接口被扩展，提供了两个获取流的方法:
+default Stream<E> stream() --返回一个顺序流
+default Stream<E> parallelStream() --返回一个并行流
+(2)Java8中的Arrays的静态方法stream()可以获取数据流:
+static <T>  Stream<T> stream(T[] array) --返回一个流
+public static IntStream stream(int[] array) --重载形式，能够处理对应基本类型的数组
+public static LongStream stream(long[] array) --重载形式，能够处理对应基本类型的数组
+public static DoubleStream stream(double[] array) --重载形式，能够处理对应基本类型的数组
+(3)通过Stream类的静态方法of(),由显示值的方式创建一个流:
+public static <T> Stream<T> of(T... values) --返回一个流
+(4)通过函数创建无限流:
+public static<T> Stream<T> iterate(final T seed,final UnaryOperator<T> f) --迭代
+public static<T> Stream<T> generate<Supplier<T> s> --生成
+2、Stream的中间操作：多个中间操作可以连接起来形成一个流水线，除非流水线上触发终止操作，否则中间操作不会执行任何处理，而是在终止操作时一次性
+全部处理，称为"惰性求职"。
+(1)筛选和切片
+filter(Predicate p)--接收lambda，从流中排除某些元素
+distinct()--筛选，通过流所生成元素的hashcode()和equals()去除重复元素
+limit(long maxSize)--截断流，使其元素不超过给定数量
+skip(long n)--跳过元素，返回一个扔掉前n个元素的流，若流中元素不足n个，则返回一个空流。与limit(n)互补
+
+
