@@ -1,6 +1,8 @@
 1、lambda表达式替换匿名类，用() -> {}代码块替换这个匿名类。
 例：(int even,int odd) -> {even + odd};
 当只有一个参数时,()可以省略;当方法体只有一行代码时,{}可省略。通常lambda表达式内部变量的名字要简短，可以使代码更加简洁。
+lambda表达式同匿名类不同点：(1)匿名类的this指向匿名类，lambda表达式的this指向外部类；
+(2)编译器方式不同，Java编译器将lambda表达式编译成类的私有方法，且使用Java7的invokedynamic字节码指令来动态绑定这个方法。
 
 2、使用lambda表达式对列表进行迭代。
 例：(1) list.foreach(n -> System.out.println(n));
@@ -9,10 +11,21 @@ java8中使用::表示方法引用,方法引用是用来直接访问类或者实
 的函数式接口构成的目标类型上下文。计算时，方法引用会创建函数式接口的一个实例。当Lambda表达式只是执行一个方法调用时，直接通过方法引用的形式
 可读性更高。
 
-3、Java8添加了一个包java.util.function包，它包含很多类，用来支持Java的函数式编程。Predicate便是其中之一，使用Lambda表达式和函数式接口
-Predicate【适合做过滤操作】，可以向API方法添加逻辑，且可以Stream API使用，用更少的代码支持更多的动态行为。
-例： list.stream().filter((x) -> (condition.demo(x)));
+3、lambda表达式注意点：
+(1)lambda表达式仅能放入如下代码:预定义使用了@Functional注释的函数式接口，自带一个抽象函数的方法，或者SAM(Single Abstract Method)类型。
+例如：若一个方法接收Runnable、Comparable或者Callable接口，都有单个抽象方法，可以传入lambda表达式。
+类似的，如果一个方法声明于java.util.function包内接口，例如：Predicate、Function、Consumer或Supplier可以传入lambda表达式。
+(2)lambda表达式可以使用方法引用，仅当该方法不修改lambda表达式，若对参数有任何修改，则不能使用方法引用，需要键入完整地lambda表达式。
+(3)lambda内部可以使用静态、非静态和局部变量，这称为lambda内的变量捕获。
+(4)lambda表达式在java中有称为闭包或匿名函数。闭包就是能够读取其他函数内部变量的函数，例如在javascript中，只有函数内部的子函数才能读取局部变量，
+所以闭包可以理解成"定义在一个函数内部的函数"。在本质上，闭包是将函数内部和函数外部连接起来的桥梁。
+(5)lambda方法在编译器内部被翻译成私有方法，并派发invokedynamic字节码指令来进行调用。
+(6)lambda表达式只能引用final或final局部变量，也就是说不能在lambda内部修改定义在域外的变量
 
-4、
+4、Java8添加了一个包java.util.function包，它包含很多类，用来支持Java的函数式编程。
+(1)java.util.function.Predicate，断言接口，允许将两个或更多的Predicate合并成一个，并提供and(),or(),negate()操作方法。
+(2)java.util.function.Function，功能接口，接收一个参数并产生一个结果，默认方法用于将多个函数链接在一起，并输出最后结果。
+(3)java.util.function.Supplier，供应接口，对于给的的泛型类型产生一个实例。
+(4)java.util.function.Consumer，消费接口，在只有一个输入参数时操作被如何执行。
 
-
+5、java.util.Optional，选项接口，是一种用来阻止NullPointerException的工具，可以包含null和non-null值。

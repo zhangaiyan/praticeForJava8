@@ -28,6 +28,7 @@ public class Demo3 {
 
         System.out.println("Print language whose length greater than 4:");
         filterByStream(languages, (str) -> str.length() > 4);
+
     }
 
     /**
