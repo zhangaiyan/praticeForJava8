@@ -19,7 +19,7 @@ public class Person<K,E,L,V> {
         HashMap hashMap = new HashMap();
         Hashtable hashtable = new Hashtable();
         ConcurrentHashMap concurrentHashMap = new ConcurrentHashMap();
-        AtomicStampedReference atomicStampedReference = new AtomicStampedReference(people,1);0
+        AtomicStampedReference atomicStampedReference = new AtomicStampedReference(people,1);
         AtomicReference atomicReference = new AtomicReference(people);
         AtomicInteger atomicInteger = new AtomicInteger();
     }
